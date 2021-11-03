@@ -1,8 +1,5 @@
 const socket = io("http://localhost:3003");
 
-socket.on('chat_iniciado', data => {
-  console.log(data)
-})
 let idChatRoom = "";
 
 function onLoad() {
@@ -87,8 +84,8 @@ function addUser(user) {
   usersList.innerHTML += ` 
     <li
       class="user_name_list"
-      id="user_${user._id}"
-      idUser="${user._id}"
+      id="user_${user.id}"
+      idUser="${user.id}"
       >
         <img
           class="nav_avatar"
@@ -121,16 +118,18 @@ document.getElementById("users_list").addEventListener("click", (e) => {
     }
 
     socket.emit("start_chat", { idUser }, (response) => {
-      idChatRoom = response.room.idChatRoom;
 
-      response.messages.forEach((message) => {
-        const data = {
-          message,
-          user: message.to,
-        };
+      console.log('response',response.id);
+      idChatRoom = response.id
 
-        addMessage(data);
-      });
+      // response.messages.forEach((message) => {
+      //   const data = {
+      //     message,
+      //     user: message.to,
+      //   };
+
+      //   addMessage(data);
+      // });
     });
   }
 });

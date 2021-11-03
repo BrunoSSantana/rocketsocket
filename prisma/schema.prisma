@@ -24,9 +24,8 @@ model User {
 
 model Room {
   id      String    @id @default(uuid())
-  user    User      @relation(fields: [user_id], references: [id])
+  user    User[]
   Message Message[]
-  user_id String
 }
 
 model Message {
