@@ -11,21 +11,31 @@ datasource db {
 }
 
 model User {
-  id        String    @id @default(uuid())
+  id        String         @id @default(uuid())
   name      String
-  email     String    @unique
+  email     String         @unique
   avatar    String
   socket_id String
   messages  Message?
+  roms      UsersOnRooms[]
 
-  Room Room[]
   @@map("users")
 }
 
 model Room {
-  id      String    @id @default(uuid())
-  user    User[]
+  id      String         @id @default(uuid())
+  users   UsersOnRooms[]
   Message Message[]
+}
+
+model UsersOnRooms {
+  room       Room     @relation(fields: [room_id], references: [id])
+  room_id    String
+  user       User     @relation(fields: [user_id], references: [id])
+  user_id    String
+  created_at DateTime @default(now())
+
+  @@id([room_id, user_id])
 }
 
 model Message {
@@ -35,7 +45,7 @@ model Message {
   created_at DateTime @default(now())
   room       Room     @relation(fields: [room_id], references: [id])
   room_id    String
-  user_id    String
+  user_id    String   @unique
 
   @@map("messages")
 }

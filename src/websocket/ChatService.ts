@@ -3,6 +3,7 @@ import { io } from '../http';
 import { CreateChatRoomService } from '../services/CreateChatRoomService';
 import { CreateUserService } from '../services/CreateUserService';
 import { GetAllUsersService } from '../services/GetAllUsersService';
+import { GetChatRoomByUsersService } from '../services/GetChatRoomByUsersService';
 import { GetUserBySocketId } from '../services/GetUserBySocketId';
 
 io.on('connect', socket => {
@@ -18,19 +19,26 @@ io.on('connect', socket => {
     const getAllUsersService = container.resolve(GetAllUsersService)
 
     const users = await getAllUsersService.execute()
-    
+
     callback(users)
 
   })
 
   socket.on('start_chat', async (data, callback) => {
     const createChatRoomService = container.resolve(CreateChatRoomService)
+    const getChatRoomByUsersService = container.resolve(GetChatRoomByUsersService)
     const getUserBySockerId = container.resolve(GetUserBySocketId)
-    
+
     const userLogged = await getUserBySockerId.execute(socket.id)
-    const room = await createChatRoomService.execute([data.idUser, userLogged.id])
-    console.log('Room', room)
-    
+
+    let room = await getChatRoomByUsersService.execute([data.idUser, userLogged.id])   
+
+    if (room.length === 0) {
+      const newRoom = await createChatRoomService.execute([data.idUser, userLogged.id])
+    }
+    room = await getChatRoomByUsersService.execute([data.idUser, userLogged.id])
+    console.log('tem room', room);
+
     callback(room)
   })
 })
