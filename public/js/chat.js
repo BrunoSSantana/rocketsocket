@@ -120,7 +120,7 @@ document.getElementById("users_list").addEventListener("click", (e) => {
     socket.emit("start_chat", { idUser }, (response) => {
 
       console.log('response',response);
-      idChatRoom = response.id
+      idChatRoom = response.room_id
 
       // response.messages.forEach((message) => {
       //   const data = {
