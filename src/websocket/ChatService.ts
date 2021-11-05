@@ -38,14 +38,14 @@ io.on('connect', socket => {
       const newRoom = await createChatRoomService.execute([data.idUser, userLogged.id])
     }
     room = await getChatRoomByUsersService.execute([data.idUser, userLogged.id])
-    console.log('tem room', room);
 
-    socket.join(room.room_id)
-
-    callback(room)
+    socket.join(room[0].room_id)
+    
+    callback(room[0])
   })
   socket.on('message', async data => {
     // buscar informações do usuário (soclet.id)
+    
     const getUserBySockerId = container.resolve(GetUserBySocketId)
     const createMessageService = container.resolve(CreateMessageService)
 
@@ -53,9 +53,13 @@ io.on('connect', socket => {
     // salvar a mensagem
     const message = await createMessageService.execute({
       to: user.id,
-      room_id: data.message,
-      text: data.idChatRoom
+      text: data.message,
+      room_id: data.idChatRoom
     })
     // enviar a mensagem para outros usuários da sala
+    io.to(data.idChatRoom).emit('message', {
+      message,
+      user,
+    })
   })
 })

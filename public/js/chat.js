@@ -70,8 +70,8 @@ function addMessage(data) {
       />
       <strong> ${data.user.name} &nbsp; </strong>
       <span>  ${dayjs(data.message.created_at).format(
-        "DD/MM/YYYY HH:mm"
-      )} </span></span
+    "DD/MM/YYYY HH:mm"
+  )} </span></span
     >
     <div class="messages">
       <span class="chat_message"> ${data.message.text}</span>
@@ -119,7 +119,6 @@ document.getElementById("users_list").addEventListener("click", (e) => {
 
     socket.emit("start_chat", { idUser }, (response) => {
 
-      console.log('response',response);
       idChatRoom = response.room_id
 
       // response.messages.forEach((message) => {
@@ -144,7 +143,6 @@ document.getElementById("user_message").addEventListener("keypress", (e) => {
       message,
       idChatRoom,
     };
-
     socket.emit("message", data);
   }
 });
