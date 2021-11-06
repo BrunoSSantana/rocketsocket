@@ -5,6 +5,7 @@ import { CreateMessageService } from '../services/CreateMessageService';
 import { CreateUserService } from '../services/CreateUserService';
 import { GetAllUsersService } from '../services/GetAllUsersService';
 import { GetChatRoomByUsersService } from '../services/GetChatRoomByUsersService';
+import { GetMessageByChatRoomService } from '../services/GetMessageByChatRoomService';
 import { GetUserBySocketId } from '../services/GetUserBySocketId';
 
 io.on('connect', socket => {
@@ -29,27 +30,37 @@ io.on('connect', socket => {
     const createChatRoomService = container.resolve(CreateChatRoomService)
     const getChatRoomByUsersService = container.resolve(GetChatRoomByUsersService)
     const getUserBySockerId = container.resolve(GetUserBySocketId)
+    const getMessageByChatRoomService = container.resolve(GetMessageByChatRoomService)
 
     const userLogged = await getUserBySockerId.execute(socket.id)
 
-    let room = await getChatRoomByUsersService.execute([data.idUser, userLogged.id])   
-
-    if (room.length === 0) {
-      const newRoom = await createChatRoomService.execute([data.idUser, userLogged.id])
+    let room: any = await getChatRoomByUsersService.execute([data.idUser, userLogged.id])
+    // console.log(`
+    // IdUser: ${data.idUser},
+    // userLooged.id: ${userLogged.id},
+    // room: ${JSON.stringify(room)}
+    // `);
+    
+    if (!room) {
+      room = await createChatRoomService.execute([data.idUser, userLogged.id])
     }
     room = await getChatRoomByUsersService.execute([data.idUser, userLogged.id])
 
-    socket.join(room[0].room_id)
+    socket.join(room.id)
     
-    callback(room[0])
+    // Buscar mensagens da sala
+    const messages = await getMessageByChatRoomService.execute(room.id)
+    // console.log('messages', messages);
+    
+    callback({room: room, messages})
   })
   socket.on('message', async data => {
-    // buscar informações do usuário (soclet.id)
-    
+    // buscar informações do usuário (soclet.id)    
     const getUserBySockerId = container.resolve(GetUserBySocketId)
     const createMessageService = container.resolve(CreateMessageService)
 
     const user = await getUserBySockerId.execute(socket.id)
+
     // salvar a mensagem
     const message = await createMessageService.execute({
       to: user.id,

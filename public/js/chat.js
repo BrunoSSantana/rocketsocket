@@ -40,9 +40,9 @@ function onLoad() {
   });
 
   socket.on("message", (data) => {
-    if (data.message.roomId === idChatRoom) {
-      addMessage(data);
-    }
+    addMessage(data);
+    // if (data.message.roomId === idChatRoom) {
+    // }
   });
 
   socket.on("notification", (data) => {
@@ -118,17 +118,16 @@ document.getElementById("users_list").addEventListener("click", (e) => {
     }
 
     socket.emit("start_chat", { idUser }, (response) => {
+      idChatRoom = response.room.id
 
-      idChatRoom = response.room_id
+      response.messages.forEach((message) => {
+        const data = {
+          message,
+          user: message.to,
+        };
 
-      // response.messages.forEach((message) => {
-      //   const data = {
-      //     message,
-      //     user: message.to,
-      //   };
-
-      //   addMessage(data);
-      // });
+        addMessage(data);
+      });
     });
   }
 });

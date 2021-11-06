@@ -2,23 +2,42 @@ import { prismaClient } from "../prisma"
 
 class GetChatRoomByUsersService {
   async execute(usersId: string[]) {
-    const getChatMyUser0 = await prismaClient.usersOnRooms.findMany({
+    const room = await prismaClient.room.findMany({
       where: {
-        user: {
-          id: {in: usersId[0]}
-        }
+        AND: [
+          {
+            users: {
+              some: {
+                user_id: usersId[0]
+              }
+            }
+          },
+          {
+            users: {
+              some: {
+                user_id: usersId[1]
+              }
+            }
+          }
+        ]
       }
     })
-    if (getChatMyUser0) {
-      const room = await prismaClient.usersOnRooms.findMany({
-        where: {
-          user: {
-            id: {in: usersId[1]}
-          }
-        }
-      })
-      return room
-    }
+
+    // console.log('The ROOMS: ', room);
+
+    return room[0]
+
+    // if (getChatMyUser0) {
+    //   const room = await prismaClient.usersOnRooms.findMany({
+    //     where: {
+    //       user: {
+    //         id: { in: usersId[1] }
+    //       }
+    //     }
+    //   })
+    //   return room
+    // }
+
   }
 }
 

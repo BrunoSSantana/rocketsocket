@@ -12,9 +12,9 @@ class CreateMessageService {
   async execute({ room_id, text, to }: CreateMessageDTO) {
     const message = await prismaClient.message.create({
       data: {
-        user_id: to,
+        to: {connect: {id: to}},
         text,
-        room_id
+        room: {connect: {id: room_id}}
       }
     })
     return message
