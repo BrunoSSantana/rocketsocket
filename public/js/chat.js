@@ -40,9 +40,9 @@ function onLoad() {
   });
 
   socket.on("message", (data) => {
-    addMessage(data);
-    // if (data.message.roomId === idChatRoom) {
-    // }
+    if (data.message.roomId === idChatRoom) {
+      addMessage(data);
+    }
   });
 
   socket.on("notification", (data) => {
