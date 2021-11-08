@@ -23,6 +23,11 @@
 .messages {
   padding: 10px;
 }
+.message.message_to_user {
+  /* background: #000; */
+  align-self: flex-end;
+  margin-right: 90px;
+}
 
 .chat_message {
   display: flex;
@@ -48,6 +53,8 @@
 .message_user {
   overflow-y: scroll;
   height: 90vh;
+  display: flex;
+  flex-direction: column;
 }
 
 * {

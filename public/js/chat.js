@@ -13,8 +13,7 @@ function onLoad() {
       class="avatar_user_logged"
       src=${avatar}
     />
-    <strong id="user_logged">${name}</strong>
-  
+    <strong id="user_logged">${name}</strong>  
   `;
 
   socket.emit("start", {
@@ -60,20 +59,24 @@ function onLoad() {
 function addMessage(data) {
   const divMessageUser = document.getElementById("message_user");
 
-  divMessageUser.innerHTML += ` 
-  <span class="user_name user_name_date">
+  const urlParams = new URLSearchParams(window.location.search);
+  const name = urlParams.get("name");
+
+  divMessageUser.innerHTML += `
+  <div class="message ${data.user.name === name ? 'message_to_user': ''}">
+    <span class="user_name user_name_date">
       <img
         class="img_user"
         src=${data.user.avatar}
       />
       <strong> ${data.user.name} &nbsp; </strong>
-      <span>  ${dayjs(data.message.created_at).format(
-    "DD/MM/YYYY HH:mm"
-  )} </span></span
-    >
+      <span>  ${dayjs(data.message.created_at).format("DD/MM/YYYY HH:mm")}</span>
+    </span>
     <div class="messages">
       <span class="chat_message"> ${data.message.text}</span>
     </div>
+  </div> 
+
   `;
 }
 
