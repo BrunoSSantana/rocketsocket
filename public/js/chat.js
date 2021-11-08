@@ -45,13 +45,11 @@ function onLoad() {
     }
   });
 
-  socket.on("notification", (data) => {
+  socket.on('notification', (data) => {
     if (data.roomId !== idChatRoom) {
-      const user = document.getElementById(`user_${data.from._id}`);
+      const user = document.getElementById(`user_${data.from.id}`);
 
-      user.insertAdjacentHTML(
-        "afterbegin",
-        ` 
+      user.insertAdjacentHTML("afterbegin", ` 
         <div class="notification"></div>
       `
       );
