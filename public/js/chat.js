@@ -5,6 +5,19 @@ function lets() {
   const messages = document.querySelector('.message_user')
   messages.scrollTo(0, messages.scrollHeight)
 }
+// function getMessagens() {
+//   const messages = document.querySelectorAll('.message')
+//   messages.forEach(message => {
+//     const messageId = message.dataset.messageId
+
+//     const lixeira = document.querySelector('svg')
+
+//     lixeira.addEventListener('click', () => {
+//       console.log('clicou', messageId);
+//     })
+//     // socket.emit('delete_message', messageId)
+//   })
+// }
 
 function onLoad() {
   const urlParams = new URLSearchParams(window.location.search);
@@ -67,7 +80,10 @@ function addMessage(data) {
   const name = urlParams.get("name");
 
   divMessageUser.innerHTML += `
-  <div class="message ${data.user.name === name ? 'message_to_user': 'message_from_user'}">
+  <div 
+    class="message ${data.user.name === name ? 'message_to_user': 'message_from_user'}"
+    data-message-id="${data.message.id}"
+  >    
     <span class="user_name user_name_date">
       <img
         class="img_user"
@@ -79,6 +95,15 @@ function addMessage(data) {
     <div class="messages">
       <span class="chat_message"> ${data.message.text}</span>
     </div>
+    ${data.user.name === name
+      ?
+      `<svg id="delete" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FAFAFA">
+        <path d="M0 0h24v24H0V0z" fill="none"/>
+        <path d="M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1zM18 7H6v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7z"/>
+      </svg>`
+       :
+        ''
+      }
   </div>
   `;
 }
@@ -138,6 +163,8 @@ document.getElementById("users_list").addEventListener("click", (e) => {
   }
   setTimeout('lets()', 100)
 
+  setTimeout('getMessagens()', 2000)
+  
 });
 
 document.getElementById("user_message").addEventListener("keypress", (e) => {
@@ -155,12 +182,4 @@ document.getElementById("user_message").addEventListener("keypress", (e) => {
 });
 
 
-// function scrolando () {
-//   const messages = document.querySelector('.message_user')
-//   if (scroll) {
-//     messages.scrollTop = messages.scrollHeight
-//   }
-// }
-
 onLoad();
-// scrolando()

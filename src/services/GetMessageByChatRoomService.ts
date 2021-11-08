@@ -10,6 +10,7 @@ class GetMessageByChatRoomService {
         roomId
       },
       select: {
+        id: true,
         to: true,
         text: true,
         roomId: true,

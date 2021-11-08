@@ -36,18 +36,18 @@ io.on('connect', socket => {
     const userLogged = await getUserBySockerId.execute(socket.id)
 
     let room: any = await getChatRoomByUsersService.execute([data.idUser, userLogged.id])
-    
+
     if (!room) {
       room = await createChatRoomService.execute([data.idUser, userLogged.id])
     }
     room = await getChatRoomByUsersService.execute([data.idUser, userLogged.id])
 
     socket.join(room.id)
-    
+
     // Buscar mensagens da sala
     const messages = await getMessageByChatRoomService.execute(room.id)
-    
-    callback({room: room, messages})
+
+    callback({ room: room, messages })
   })
   socket.on('message', async data => {
     // buscar informações do usuário (soclet.id)    
@@ -80,4 +80,8 @@ io.on('connect', socket => {
       from: user
     })
   })
+  // socket.on('delete_message', async data => {
+  //   console.log('delete', data);
+
+  // })
 })

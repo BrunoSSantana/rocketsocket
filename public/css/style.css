@@ -4,7 +4,7 @@
 }
 
 .user_name {
-  padding: 10px;
+  padding-right: 10px;
   display: flex;
   align-items: center;
 }
@@ -34,6 +34,11 @@
   padding: 10px;
 }
 
+.message {
+  display: flex;
+  flex-direction: column;
+}
+
 .message_user > .message {
   background: #00000015;
   border-radius: 8px;
@@ -46,6 +51,17 @@
 .message.message_from_user {
   align-self: flex-start;
 }
+
+.message > svg  {
+  align-self: flex-end;
+  margin-bottom: 5px;
+  margin-right: 5px;
+}
+
+.message > svg:hover  {
+  cursor: pointer;
+}
+
 
 .chat_message {
   display: flex;
