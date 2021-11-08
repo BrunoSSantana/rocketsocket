@@ -12,18 +12,19 @@
     />
 
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="shortcut icon" href="https://upload.wikimedia.org/wikipedia/commons/1/18/Creative-Tail-rocket.svg" type="image/x-icon">
 
-    <title>Websocket</title>
+    <title>Rocketsocket</title>
   </head>
 
   <body>
     <div class="w-screen h-screen">
       <div class="flex flex-1 text-white">
         <!-- Left -->
-        <div class="w-3/12 h-screen bg-gray-900 position-relative">
+        <div class="w-3/12 h-screen bg-purple-900 position-relative">
 
           <div id="users" class="m-3">
-            <div class="bg-green w-4"></div>
+            <div class="bg-red w-4"></div>
             <ul id="users_list">
               <!-- <li
                 class="user_name_list"
@@ -51,19 +52,23 @@
         </div>
 
         <!-- Right -->
-        <div class="w-9/12 bg-gray-700" id="c_message">
+        <div class="w-9/12 bg-purple-700" id="c_message">
           <div class="message_user" id="message_user">
-            <!-- <span class="user_name user_name_date">
-              <img
-                class="img_user"
-                src="https://avatars.githubusercontent.com/u/5041791?v=4"
-              />
-              <strong>Daniele Leão Evangelista</strong>
-              <span> 20/10/2020</span>
-            </span> 
-            <div class="messages">
-              <span class="chat_message"> Oi tudo bem?</span>
-            </div>-->
+            <!-- 
+              <div class="message ${data.user.name === name ? 'message_to_user': 'message_from_user'}">
+                <span class="user_name user_name_date">
+                  <img
+                    class="img_user"
+                    src=${data.user.avatar}
+                  />
+                  <strong> ${data.user.name} &nbsp; </strong>
+                  <span>  ${dayjs(data.message.created_at).format("DD/MM/YYYY HH:mm")}</span>
+                </span>
+                <div class="messages">
+                  <span class="chat_message"> ${data.message.text}</span>
+                </div>
+              </div>
+          -->
           </div>
 
           <input
@@ -71,7 +76,7 @@
             id="user_message"
             class="
               shadow
-              bg-gray-600
+              bg-purple-500
               absolute
               bottom-0
               w-8/12

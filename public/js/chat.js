@@ -1,6 +1,10 @@
 const socket = io("http://localhost:3003");
 
 let idChatRoom = "";
+function lets() {
+  const messages = document.querySelector('.message_user')
+  messages.scrollTo(0, messages.scrollHeight)
+}
 
 function onLoad() {
   const urlParams = new URLSearchParams(window.location.search);
@@ -63,7 +67,7 @@ function addMessage(data) {
   const name = urlParams.get("name");
 
   divMessageUser.innerHTML += `
-  <div class="message ${data.user.name === name ? 'message_to_user': ''}">
+  <div class="message ${data.user.name === name ? 'message_to_user': 'message_from_user'}">
     <span class="user_name user_name_date">
       <img
         class="img_user"
@@ -75,8 +79,7 @@ function addMessage(data) {
     <div class="messages">
       <span class="chat_message"> ${data.message.text}</span>
     </div>
-  </div> 
-
+  </div>
   `;
 }
 
@@ -103,9 +106,11 @@ document.getElementById("users_list").addEventListener("click", (e) => {
 
   document
     .querySelectorAll("li.user_name_list")
-    .forEach((item) => item.classList.remove("user_in_focus"));
+    .forEach((item) => item.classList.remove("user_in_focus"))  
+  ;
 
   document.getElementById("message_user").innerHTML = "";
+
   if (e.target && e.target.matches("li.user_name_list")) {
     const idUser = e.target.getAttribute("idUser");
 
@@ -131,6 +136,8 @@ document.getElementById("users_list").addEventListener("click", (e) => {
       });
     });
   }
+  setTimeout('lets()', 100)
+
 });
 
 document.getElementById("user_message").addEventListener("keypress", (e) => {
@@ -147,4 +154,13 @@ document.getElementById("user_message").addEventListener("keypress", (e) => {
   }
 });
 
+
+// function scrolando () {
+//   const messages = document.querySelector('.message_user')
+//   if (scroll) {
+//     messages.scrollTop = messages.scrollHeight
+//   }
+// }
+
 onLoad();
+// scrolando()

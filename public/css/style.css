@@ -20,13 +20,31 @@
   margin-left: 20px;
 }
 
+.message_user {
+  overflow-y: scroll;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+
+  padding: 0 30px;  
+  gap: 10px;
+}
+
 .messages {
   padding: 10px;
 }
+
+.message_user > .message {
+  background: #00000015;
+  border-radius: 8px;
+}
+
 .message.message_to_user {
-  /* background: #000; */
   align-self: flex-end;
-  margin-right: 90px;
+}
+
+.message.message_from_user {
+  align-self: flex-start;
 }
 
 .chat_message {
@@ -50,13 +68,6 @@
   margin-right: 10px;
 }
 
-.message_user {
-  overflow-y: scroll;
-  height: 90vh;
-  display: flex;
-  flex-direction: column;
-}
-
 * {
   scrollbar-width: thin;
   scrollbar-color: #374151 #28303b;
@@ -77,9 +88,9 @@
 }
 
 .user_in_focus {
-  background: #374151;
+  background: #00000050;
   border-radius: 5px;
-  opacity: 0.7;
+  opacity: 0.90;
 }
 
 .nav_avatar {
@@ -108,7 +119,7 @@
 .notification {
   width: 20px;
   height: 20px;
-  background: #ff0101;
+  background: #ff1c3c;
   border-radius: 50%;
   margin: 3px -4px -27px -11px;
   border: 2px solid #000;
