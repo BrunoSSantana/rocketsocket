@@ -23,20 +23,7 @@ class GetChatRoomByUsersService {
       }
     })
 
-    // console.log('The ROOMS: ', room);
-
     return room[0]
-
-    // if (getChatMyUser0) {
-    //   const room = await prismaClient.usersOnRooms.findMany({
-    //     where: {
-    //       user: {
-    //         id: { in: usersId[1] }
-    //       }
-    //     }
-    //   })
-    //   return room
-    // }
 
   }
 }

@@ -36,11 +36,6 @@ io.on('connect', socket => {
     const userLogged = await getUserBySockerId.execute(socket.id)
 
     let room: any = await getChatRoomByUsersService.execute([data.idUser, userLogged.id])
-    // console.log(`
-    // IdUser: ${data.idUser},
-    // userLooged.id: ${userLogged.id},
-    // room: ${JSON.stringify(room)}
-    // `);
     
     if (!room) {
       room = await createChatRoomService.execute([data.idUser, userLogged.id])
@@ -51,7 +46,6 @@ io.on('connect', socket => {
     
     // Buscar mensagens da sala
     const messages = await getMessageByChatRoomService.execute(room.id)
-    // console.log('messages', messages);
     
     callback({room: room, messages})
   })

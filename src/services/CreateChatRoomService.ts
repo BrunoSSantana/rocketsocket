@@ -8,7 +8,6 @@ class CreateChatRoomService {
     const room = await prismaClient.room.create({
       data: {}
     })
-    console.log('roomCreate', room);
 
     // conecta room com primeiro usuário
     const roomOnRooms1 = await prismaClient.usersOnRooms.create({
@@ -21,7 +20,7 @@ class CreateChatRoomService {
         }
       }
     })
-    console.log('Room1', roomOnRooms1)
+
     // conecta room com segundo usuário
     const roomOnRooms2 = await prismaClient.usersOnRooms.create({
       data: {
@@ -33,7 +32,6 @@ class CreateChatRoomService {
         }
       }
     })
-    console.log('Room2',roomOnRooms2)
 
     return room
   }
