@@ -24,7 +24,7 @@ function onLoad() {
   });
 
   socket.on("new_users", (user) => {
-    const existInDiv = document.getElementById(`user_${user._id}`);
+    const existInDiv = document.getElementById(`user_${user.id}`);
 
     if (!existInDiv) {
       addUser(user);
