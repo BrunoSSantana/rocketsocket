@@ -1,5 +1,5 @@
 <h1 align="center">
-	<img alt="Logo" src="https://cdn-icons.flaticon.com/png/512/1436/premium/1436366.png?token=exp=1638453970~hmac=6f80c00b07ecb840076292dea9bb759d" width="200px" />
+	<img alt="Logo" src="https://cdn-icons-png.flaticon.com/512/1049/1049874.png" width="200px" />
 </h1>
 
 <h3 align="center">
