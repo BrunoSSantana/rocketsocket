@@ -104,4 +104,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 Made with 💜 by Bruno Santana 👋🏽
 
-[⬆ Voltar ao topo](#-sobre)
+[⬆ Back to the top](#-about-the-project)
