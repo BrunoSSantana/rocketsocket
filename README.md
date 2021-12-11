@@ -73,7 +73,7 @@ $ git clone https://github.com/Bruno/rocketsocket.git && cd rocketsocket
 
 **Clone by GitHub CLI:**
 ```bash
-$ gh repo clone BrunoSSantana/devchallenge_biblioteca_api
+$ gh repo clone BrunoSSantana/rocketsocket
 ```
 **Follow the steps below**
 
