@@ -1,4 +1,4 @@
 import { server } from "./http";
-import './websocket/ChatService'
+import "./websocket/ChatService";
 
-server.listen(3003, () => console.log('🔥 🚀'))
+server.listen(3003, () => console.log("🔥 🚀"));

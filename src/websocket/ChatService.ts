@@ -50,7 +50,7 @@ io.on('connect', socket => {
     callback({ room: room, messages })
   })
   socket.on('message', async data => {
-    // buscar informações do usuário (soclet.id)    
+    // buscar informações do usuário (soclet.id) 
     const getUserBySockerId = container.resolve(GetUserBySocketId)
     const createMessageService = container.resolve(CreateMessageService)
     const getChatRoomByIdService = container.resolve(GetChatRoomByIdService)
@@ -63,6 +63,7 @@ io.on('connect', socket => {
       text: data.message,
       room_id: data.idChatRoom
     })
+
     // enviar a mensagem para outros usuários da sala
     io.to(data.idChatRoom).emit('message', {
       message,
