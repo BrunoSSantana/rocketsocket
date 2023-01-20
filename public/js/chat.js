@@ -30,7 +30,7 @@ function onLoad() {
       class="avatar_user_logged"
       src=${avatar}
     />
-    <strong id="user_logged">${name}</strong>  
+    <strong id="user_logged">${name}</strong>
   `;
 
   socket.emit("start", {
